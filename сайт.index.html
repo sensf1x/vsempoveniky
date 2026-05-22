@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВсемПоВенику — товары для бани и сауны</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background-color: #FFF8F0;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5D4037;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #8D6E63;
+        }
+        nav {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #6D4C41;
+            margin-left: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        nav a:hover {
+            color: #A1887F;
+        }
+        .phone-number {
+            font-weight: bold;
+            color: #5D4037;
+            text-decoration: none;
+            font-size: 1rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(62, 39, 35, 0.5), rgba(62, 39, 35, 0.5)), url('https://images.unsplash.com/photo-1540148426944-6f9b8e4b1c1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 3rem;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        .btn {
+            display: inline-block;
+            background-color: #8D6E63;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .btn:hover {
+            background-color: #A1887F;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            display: inline-block;
+            background-color: transparent;
+            color: #8D6E63;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: 2px solid #8D6E63;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+        .btn-outline:hover {
+            background-color: #8D6E63;
+            color: #fff;
+        }
+
+        section {
+            padding: 3rem 0;
+        }
+        section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: #4E342E;
+            position: relative;
+        }
+        section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #A1887F;
+            margin: 0.5rem auto 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            border: 1px solid #EFEBE9;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: #D7CCC8;
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card .product-info {
+            padding: 1.5rem;
+        }
+        .product-card h3 {
+            margin-bottom: 0.5rem;
+            color: #4E342E;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .product-card .old-price {
+            font-size: 1rem;
+            color: #A1887F;
+            text-decoration: line-through;
+            margin-bottom: 0.3rem;
+        }
+        .product-card .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #BF360C;
+        }
+        .product-card .discount-badge {
+            display: inline-block;
+            background-color: #FFE0B2;
+            color: #E65100;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        .map-container {
+            position: relative;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            height: 400px;
+            overflow: hidden;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .contact-details {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #EFEBE9;
+        }
+        .contact-details h3 {
+            margin-bottom: 1rem;
+            color: #5D4037;
+        }
+        .contact-details p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            color: #4E342E;
+        }
+        .contact-details i {
+            margin-right: 10px;
+            color: #8D6E63;
+            width: 20px;
+            text-align: center;
+        }
+        .contact-details a {
+            color: #5D4037;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .rating {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #F9A825;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: #fff;
+        }
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .social-btn.vk {
+            background-color: #0077FF;
+        }
+        .social-btn.whatsapp {
+            background-color: #25D366;
+        }
+
+        footer {
+            background-color: #4E342E;
+            color: #D7CCC8;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .hero {
+                padding: 60px 20px;
+            }
+            .contact-row {
+                grid-template-columns: 1fr;
+            }
+            .map-container {
+                height: 250px;
+            }
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 5px;
+            }
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9rem;
+            }
+            .phone-number {
+                font-size: 0.95rem;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Всем<span>По</span>Венику</a>
+            <a href="tel:+79175248280" class="phone-number"><i class="fas fa-phone-alt"></i> +7 (917) 524 82 80</a>
+            <nav>
+                <a href="#products">Товары</a>
+                <a href="#about">О нас</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Всё для настоящей бани — с душой и паром!</h1>
+            <p>Свежие веники, ароматные масла, травяные сборы и уютные мелочи — создайте баню, в которую захочется возвращаться.</p>
+            <a href="#contact" class="btn">Посмотреть адрес</a>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="container">
+            <h2>Наш ассортимент</h2>
+            <div class="products-grid">
+                <!-- Веник дубовый -->
+                <div class="product-card">
+                    <img src="venik_dubovy.jpg" alt="Веник дубовый">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Веник дубовый</h3>
+                        <p class="old-price">400 ₽</p>
+                        <p class="price">350 ₽</p>
+                    </div>
+                </div>
+                <!-- Веник березовый -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Веник березовый</h3>
+                        <p class="old-price">350 ₽</p>
+                        <p class="price">300 ₽</p>
+                    </div>
+                </div>
+                <!-- Канадский дуб -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Канадский дуб</h3>
+                        <p class="old-price">400 ₽</p>
+                        <p class="price">350 ₽</p>
+                    </div>
+                </div>
+                <!-- Веник можжевеловый -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Веник можжевеловый</h3>
+                        <p class="old-price">350 ₽</p>
+                        <p class="price">300 ₽</p>
+                    </div>
+                </div>
+                <!-- Веник пихтовый -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Веник пихтовый</h3>
+                        <p class="old-price">270 ₽</p>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Липовый веник -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Липовый веник</h3>
+                        <p class="old-price">380 ₽</p>
+                        <p class="price">350 ₽</p>
+                    </div>
+                </div>
+                <!-- Эвкалиптовый веник -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Эвкалиптовый веник</h3>
+                        <p class="price">350 ₽</p>
+                    </div>
+                </div>
+                <!-- Веничек полыни горькой -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Веничек полыни горькой</h3>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Пучок душицы -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Пучок душицы</h3>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Пучок горной мяты -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Пучок горной мяты</h3>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Пучок мяты перечной -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Пучок мяты перечной</h3>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Пучок лаванды -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Пучок лаванды</h3>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Пучок донника желтого -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Пучок донника желтого</h3>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Чабрец в пучке -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Чабрец в пучке</h3>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Сенной матрас -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Сенной матрас</h3>
+                        <p class="old-price">1 800 ₽</p>
+                        <p class="price">1 600 ₽</p>
+                    </div>
+                </div>
+                <!-- Чай в ассортименте -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Чай в ассортименте</h3>
+                        <p class="old-price">300 ₽</p>
+                        <p class="price">250 ₽</p>
+                    </div>
+                </div>
+                <!-- Лыковая мочалка -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>Лыковая мочалка</h3>
+                        <p class="price">200 ₽</p>
+                    </div>
+                </div>
+                <!-- Запарка для бочек и купелей -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Запарка для бочек и купелей</h3>
+                        <p class="old-price">350 ₽</p>
+                        <p class="price">300 ₽</p>
+                    </div>
+                </div>
+                <!-- Эфирные масла -->
+                <div class="product-card">
+                    <div class="product-info">
+                        <span class="discount-badge">СКИДКА</span>
+                        <h3>Эфирные масла</h3>
+                        <p class="old-price">180 ₽</p>
+                        <p class="price">150 ₽</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="background-color: #fff;">
+        <div class="container">
+            <h2>О магазине «ВсемПоВенику»</h2>
+            <p style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: #4E342E;">
+                С 2018 года помогаем превратить обычную баню в настоящий ритуал. Только проверенные веники, душистые травы и всё, что делает пар по-настоящему целебным. Заходите в гости — подберём идеальный набор под ваш вкус и настроение!
+            </p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Наши контакты и адрес</h2>
+            <div class="contact-row">
+                <div class="map-container">
+                    <iframe src="https://yandex.ru/map-widget/v1/?ll=38.241318%2C55.548737&mode=search&oid=209646190341&ol=biz&z=17" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="contact-details">
+                    <div class="rating">
+                        <i class="fas fa-star"></i> Рейтинг 4.9 на Яндекс.Картах
+                    </div>
+                    <h3>Магазин «ВсемПоВенику»</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Адрес:</strong> д. Клишева, ул. Огородная, 26</p>
+                    <p><i class="fas fa-clock"></i> <strong>Режим работы:</strong> Ежедневно с 09:00 до 21:00</p>
+                    <p><i class="fas fa-phone-alt"></i> <strong>Телефон:</strong> <a href="tel:+79175248280">+7 (917) 524 82 80</a></p>
+                    <p style="margin-top: 1rem;">
+                        <i class="fas fa-info-circle"></i> Звоните, чтобы уточнить наличие!
+                    </p>
+                    <p style="margin-top: 0.5rem;">
+                        <a href="https://yandex.ru/maps/org/vsempoveniku/209646190341" target="_blank" class="btn-outline">
+                            <i class="fas fa-map-marked-alt"></i> Открыть в Яндекс.Картах
+                        </a>
+                    </p>
+                    <div class="social-links">
+                        <a href="https://vk.com/vsempoveniky" target="_blank" class="social-btn vk">
+                            <i class="fab fa-vk"></i> ВКонтакте
+                        </a>
+                        <a href="https://wa.me/79175248280" target="_blank" class="social-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 «ВсемПоВенику». Все права защищены.</p>
+            <p>Товары для бани и сауны в Клишеве. Работаем для вас каждый день.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
